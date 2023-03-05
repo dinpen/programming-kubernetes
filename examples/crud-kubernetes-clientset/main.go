@@ -48,6 +48,15 @@ func main() {
 
 	fmt.Printf("Got ConfigMap %s/%s\n", namespace, got.GetName())
 
+	// 获取 ConfigMap 列表
+	list, err := client.CoreV1().ConfigMaps(namespace).List(context.Background(), metav1.ListOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+	for _, item := range list.Items {
+		fmt.Printf("List ConfigMap %s/%s\n", namespace, item.GetName())
+	}
+
 	// 更新 ConfigMap
 	// got.Data["foo"] = "baz"
 	// updated, err := client.CoreV1().ConfigMaps(namespace).Update(context.Background(), got, metav1.UpdateOptions{})

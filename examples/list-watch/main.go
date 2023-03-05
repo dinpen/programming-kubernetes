@@ -23,6 +23,11 @@ watch 就会中断并返回 expired 相关的错误。此时，如果我们想�
 watch 对象使用的是 http 的 chunk 协议（数据分块协议），
 在制作浏览器进度条时，我们也会使用该协议进行长连接。
 */
+
+// 运行：
+// go run main.go
+// kubectl apply -f cm.yaml
+// kubectl delete -f cm.yaml
 func main() {
 	clientset := kubernetes.NewForConfigOrDie(ctrl.GetConfigOrDie())
 	// lw := cache.NewListWatchFromClient(clientset.CoreV1().RESTClient(), "configmaps", "default", fields.Everything())

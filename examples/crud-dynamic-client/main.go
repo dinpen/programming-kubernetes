@@ -58,6 +58,15 @@ func main() {
 
 	fmt.Printf("Got ConfigMap %s/%s\n", namespace, got.GetName())
 
+	// 获取 ConfigMap 的列表
+	list, err := client.Resource(res).Namespace(namespace).List(context.Background(), metav1.ListOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+	for _, item := range list.Items {
+		fmt.Printf("List ConfigMap %s/%s\n", namespace, item.GetName())
+	}
+
 	// 检查 ConfigMap 的数据
 	// 如果没有找到 map 的键，则第二个返回值为 false
 	// 如果传入的 obj 结构不是 map[string]interface{} 或者 map 值类型不是 string map，则第三个返回值为 error

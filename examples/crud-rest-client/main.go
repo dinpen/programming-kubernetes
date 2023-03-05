@@ -35,6 +35,9 @@ func main() {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: namespace,
 			Name:      "rest-client-crud-config",
+			Labels: map[string]string{
+				"app": "rest-client-crud",
+			},
 		},
 		Data: map[string]string{
 			"foo": "bar",
@@ -60,6 +63,20 @@ func main() {
 	}
 
 	fmt.Printf("Got ConfigMap %s/%s\n", namespace, got.GetName())
+
+	// 获取 ConfigMap 列表
+	var list = &corev1.ConfigMapList{}
+	err = client.Get().Namespace(namespace).Resource("configmaps").Do(context.Background()).Into(list)
+	// 可以通过 Param() 方法传入查询参数：labelSelector，fieldSelector，resourceVersion，timeoutSeconds，watch 等，例如：
+	// err = client.Get().Namespace(namespace).Resource("configmaps").Param("labelSelector", "app=rest-client-crud").Do(context.Background()).Into(list)
+	// 通过 label 过滤
+
+	if err != nil {
+		panic(err.Error())
+	}
+	for _, item := range list.Items {
+		fmt.Printf("List ConfigMap %s/%s\n", namespace, item.GetName())
+	}
 
 	// 更新 ConfigMap
 	got.Data["foo"] = "baz"
