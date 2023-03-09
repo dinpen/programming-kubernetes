@@ -1,5 +1,7 @@
 # kubernetes-secondary-dev
 
+[<- 收藏文章](./index.md)
+
 > 本文转自 ShadowYD 的博客，[**原文**](https://juejin.cn/post/7203690731276517432)，版权归原作者所有。
 
 ## **1. 简介**
